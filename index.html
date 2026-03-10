@@ -192,6 +192,40 @@
             left: 100%;
         }
         
+        /* VSL Video */
+        .vsl-wrapper {
+            margin: 28px 0;
+        }
+
+        .vsl-label {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--ochre) 100%);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .vsl-container {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(22, 74, 80, 0.2);
+            border: 3px solid var(--coral);
+            background: #000;
+        }
+
+        .vsl-container video {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
         /* CTA Variations */
         .cta-primary {
             font-size: 1.3rem;
@@ -608,6 +642,18 @@
                 <div class="trust-badge">Works in Under 2 Minutes</div>
             </div>
             
+            <div class="vsl-wrapper">
+                <div class="vsl-label">Watch This First</div>
+                <div class="vsl-container">
+                    <video
+                        controls
+                        playsinline
+                        preload="metadata"
+                        src="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov"
+                    ></video>
+                </div>
+            </div>
+
             <div class="value-stack">
                 <h4>Everything You Get Today:</h4>
                 <div class="value-item">

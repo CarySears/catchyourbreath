@@ -62,6 +62,37 @@
             font-weight: bold;
         }
         
+        /* VSL (Video Sales Letter) */
+        .vsl-container {
+            margin: 32px 0;
+            text-align: center;
+        }
+        
+        .vsl-intro {
+            font-size: 1.1rem;
+            color: var(--rust);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        
+        .vsl-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(22, 74, 80, 0.2);
+            border: 2px solid rgba(243, 217, 208, 0.8);
+            max-width: 640px;
+            margin: 0 auto;
+            background: #000;
+        }
+        
+        .vsl-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9;
+        }
+        
         /* Hero Section */
         .hero {
             background: rgba(255, 255, 255, 0.95);
@@ -559,6 +590,14 @@
                 align-items: flex-start;
                 gap: 4px;
             }
+            
+            .vsl-container {
+                margin: 24px 0;
+            }
+            
+            .vsl-intro {
+                font-size: 1rem;
+            }
         }
         
         /* Animations */
@@ -606,6 +645,16 @@
                 <div class="trust-badge">Instant Digital Access</div>
                 <div class="trust-badge">7-Day Money-Back Guarantee</div>
                 <div class="trust-badge">Works in Under 2 Minutes</div>
+            </div>
+            
+            <div class="vsl-container">
+                <p class="vsl-intro">Watch how the Catch Your Breath Kit can transform overwhelm into calm—in minutes.</p>
+                <div class="vsl-wrapper">
+                    <video class="vsl-video" controls playsinline>
+                        <source src="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov" type="video/quicktime">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </div>
             
             <div class="value-stack">

@@ -113,6 +113,45 @@
             margin-bottom: 32px;
             font-weight: 400;
         }
+
+        /* Hero VSL */
+        .hero-vsl {
+            margin: 0 auto 30px;
+            max-width: 720px;
+        }
+
+        .hero-vsl-intro {
+            color: var(--sea);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .vsl-frame {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 14px 30px rgba(22, 74, 80, 0.2);
+            border: 2px solid rgba(22, 74, 80, 0.15);
+            background: #000;
+        }
+
+        .vsl-video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+        }
+
+        .hero-vsl-note {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--rust);
+        }
+
+        .hero-vsl-note a {
+            color: var(--sea);
+            font-weight: 600;
+        }
         
         /* Value Stack */
         .value-stack {
@@ -534,6 +573,14 @@
             .hero .subtitle {
                 font-size: 1.1rem;
             }
+
+            .hero-vsl {
+                margin-bottom: 24px;
+            }
+
+            .hero-vsl-intro {
+                font-size: 0.95rem;
+            }
             
             .cta-button {
                 padding: 16px 28px;
@@ -600,6 +647,18 @@
             <h1>Catch Your Breath in a Crazy World</h1>
             <div class="subtitle">
                 Discover 3 simple breathing rituals, a 10-minute masterclass & a printable cheat-sheet—all for just <strong>$9</strong>—to build calm, clarity & resilience anytime, anywhere.
+            </div>
+
+            <div class="hero-vsl">
+                <p class="hero-vsl-intro">Watch this quick video to feel what this shift can do for you:</p>
+                <div class="vsl-frame">
+                    <video class="vsl-video" controls playsinline preload="metadata">
+                        <source src="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov" type="video/quicktime">
+                        <source src="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov" type="video/mp4">
+                        Your browser cannot play this video. Use the direct link below.
+                    </video>
+                </div>
+                <p class="hero-vsl-note">If playback doesn't start, <a href="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov" target="_blank" rel="noopener noreferrer">watch the VSL in a new tab</a>.</p>
             </div>
             
             <div class="trust-badges">

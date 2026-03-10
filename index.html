@@ -62,6 +62,77 @@
             font-weight: bold;
         }
         
+        /* VSL Video */
+        .vsl-wrapper {
+            margin: 32px auto 36px;
+            max-width: 640px;
+            width: 100%;
+        }
+
+        .vsl-container {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(22, 74, 80, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
+            background: #000;
+            cursor: pointer;
+        }
+
+        .vsl-container video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+
+        .vsl-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 72px;
+            height: 72px;
+            background: rgba(22, 74, 80, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .vsl-play-btn::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 14px 0 14px 24px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+
+        .vsl-container:hover .vsl-play-btn {
+            background: rgba(22, 74, 80, 0.95);
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .vsl-container.is-playing .vsl-play-btn {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vsl-label {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--rust);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
         /* Hero Section */
         .hero {
             background: rgba(255, 255, 255, 0.95);
@@ -549,6 +620,32 @@
             .trust-badge {
                 font-size: 0.8rem;
             }
+
+            .vsl-wrapper {
+                margin: 24px auto 28px;
+            }
+
+            .vsl-container {
+                border-radius: 12px;
+            }
+
+            .vsl-container video {
+                border-radius: 12px;
+            }
+
+            .vsl-play-btn {
+                width: 56px;
+                height: 56px;
+            }
+
+            .vsl-play-btn::after {
+                border-width: 10px 0 10px 18px;
+                margin-left: 3px;
+            }
+
+            .vsl-label {
+                font-size: 0.82rem;
+            }
             
             .mobile-cta {
                 display: block;
@@ -607,7 +704,18 @@
                 <div class="trust-badge">7-Day Money-Back Guarantee</div>
                 <div class="trust-badge">Works in Under 2 Minutes</div>
             </div>
-            
+
+            <div class="vsl-wrapper">
+                <div class="vsl-container" id="vslContainer">
+                    <video id="vslVideo" preload="metadata" playsinline>
+                        <source src="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov" type="video/quicktime">
+                        <source src="https://assets.cdn.filesafe.space/jNqy5QsBJRJ9cjslwRNp/media/69b04f84bfc81f421c4ee994.mov" type="video/mp4">
+                    </video>
+                    <div class="vsl-play-btn"></div>
+                </div>
+                <div class="vsl-label">Watch: How to Catch Your Breath in Under 2 Minutes</div>
+            </div>
+
             <div class="value-stack">
                 <h4>Everything You Get Today:</h4>
                 <div class="value-item">
@@ -861,6 +969,26 @@
     </div>
 
     <script>
+        // VSL play/pause
+        (function() {
+            const container = document.getElementById('vslContainer');
+            const video = document.getElementById('vslVideo');
+            if (container && video) {
+                container.addEventListener('click', function() {
+                    if (video.paused) {
+                        video.play();
+                        container.classList.add('is-playing');
+                    } else {
+                        video.pause();
+                        container.classList.remove('is-playing');
+                    }
+                });
+                video.addEventListener('ended', function() {
+                    container.classList.remove('is-playing');
+                });
+            }
+        })();
+
         // FAQ Toggle Function
         function toggleFaq(element) {
             const answer = element.nextElementSibling;

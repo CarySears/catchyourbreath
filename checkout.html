@@ -773,10 +773,10 @@
             btnText.style.display = 'none';
             spinner.style.display = 'block';
 
-            // In a real integration this would call a payment processor (e.g. Stripe).
-            // For now, simulate a brief processing delay then redirect to a confirmation page.
+            var email = encodeURIComponent(document.getElementById('email').value.trim());
+            var name = encodeURIComponent(document.getElementById('firstName').value.trim() + ' ' + document.getElementById('lastName').value.trim());
             setTimeout(function() {
-                window.location.href = 'confirmation.html';
+                window.location.href = 'https://b101delta.netlify.app/index.html?email=' + email + '&phone=&name=' + name + '&contact_id=';
             }, 1800);
         });
     </script>

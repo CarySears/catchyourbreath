@@ -785,11 +785,16 @@
             btnText.style.display = 'none';
             spinner.style.display = 'block';
 
-            var email = encodeURIComponent(document.getElementById('email').value.trim());
-            var phone = encodeURIComponent(document.getElementById('phone').value.trim());
-            var name = encodeURIComponent(document.getElementById('firstName').value.trim() + ' ' + document.getElementById('lastName').value.trim());
+            var email      = encodeURIComponent(document.getElementById('email').value.trim());
+            var phone      = encodeURIComponent(document.getElementById('phone').value.trim());
+            var firstName  = encodeURIComponent(document.getElementById('firstName').value.trim());
+            var lastName   = encodeURIComponent(document.getElementById('lastName').value.trim());
             setTimeout(function() {
-                window.location.href = 'https://b101delta.netlify.app/index.html?email=' + email + '&phone=' + phone + '&name=' + name + '&contact_id=';
+                window.location.href = 'https://b101delta.netlify.app/index.html'
+                    + '?email=' + email
+                    + '&phone=' + phone
+                    + '&first_name=' + firstName
+                    + '&last_name=' + lastName;
             }, 1800);
         });
     </script>

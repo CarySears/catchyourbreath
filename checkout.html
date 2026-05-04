@@ -562,18 +562,6 @@
                         Contact Information
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="you@example.com"
-                            autocomplete="email"
-                            required
-                        >
-                    </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -597,6 +585,30 @@
                                 required
                             >
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="+1 (555) 000-0000"
+                            autocomplete="tel"
+                            required
+                        >
                     </div>
 
                     <hr class="form-divider">
@@ -745,7 +757,7 @@
         document.getElementById('checkoutForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const fields = ['email', 'firstName', 'lastName', 'cardNumber', 'expiry', 'cvc', 'nameOnCard'];
+            const fields = ['firstName', 'lastName', 'email', 'phone', 'cardNumber', 'expiry', 'cvc', 'nameOnCard'];
             let valid = true;
 
             fields.forEach(function(id) {
@@ -774,9 +786,10 @@
             spinner.style.display = 'block';
 
             var email = encodeURIComponent(document.getElementById('email').value.trim());
+            var phone = encodeURIComponent(document.getElementById('phone').value.trim());
             var name = encodeURIComponent(document.getElementById('firstName').value.trim() + ' ' + document.getElementById('lastName').value.trim());
             setTimeout(function() {
-                window.location.href = 'https://b101delta.netlify.app/index.html?email=' + email + '&phone=&name=' + name + '&contact_id=';
+                window.location.href = 'https://b101delta.netlify.app/index.html?email=' + email + '&phone=' + phone + '&name=' + name + '&contact_id=';
             }, 1800);
         });
     </script>

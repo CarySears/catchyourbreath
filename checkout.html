@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout – Catch Your Breath Kit</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #e27756 0%, #ce8f29 50%, #f3d9d0 100%);
+            min-height: 100vh;
+        }
+
+        :root {
+            --rust: #9b4d32;
+            --coral: #e27756;
+            --shell: #f3d9d0;
+            --sand: #f2ede2;
+            --ochre: #ce8f29;
+            --sea: #164a50;
+            --sky: #a3b6e5;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+        }
+
+        /* ── Secure header bar ── */
+        .secure-header {
+            text-align: center;
+            padding: 12px 0 20px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .secure-header .lock-icon {
+            font-size: 1rem;
+        }
+
+        /* ── Main card ── */
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(22, 74, 80, 0.2);
+            border: 1px solid rgba(243, 217, 208, 0.7);
+        }
+
+        /* top accent bar */
+        .card-accent {
+            height: 5px;
+            background: linear-gradient(90deg, var(--coral) 0%, var(--ochre) 100%);
+        }
+
+        /* ── Card header / product summary ── */
+        .card-header {
+            padding: 32px 36px 24px;
+            border-bottom: 1px solid rgba(226, 119, 86, 0.15);
+        }
+
+        .card-header h1 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--sea);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+        }
+
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .product-info h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--sea);
+            margin-bottom: 4px;
+        }
+
+        .product-info .tagline {
+            font-size: 0.9rem;
+            color: var(--rust);
+        }
+
+        .product-price {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .product-price .price-amount {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--sea);
+            line-height: 1;
+        }
+
+        .product-price .price-label {
+            font-size: 0.8rem;
+            color: var(--rust);
+            margin-top: 2px;
+        }
+
+        /* ── What's included ── */
+        .includes {
+            margin-top: 20px;
+        }
+
+        .includes-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--sea);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin-bottom: 12px;
+        }
+
+        .includes-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+        }
+
+        .includes-list li {
+            font-size: 0.88rem;
+            color: var(--rust);
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+        }
+
+        .includes-list li::before {
+            content: '✨';
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            margin-top: 1px;
+        }
+
+        /* ── Value callout ── */
+        .value-callout {
+            margin-top: 20px;
+            background: linear-gradient(90deg, var(--sky) 0%, rgba(163, 182, 229, 0.25) 100%);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 0.92rem;
+            color: var(--sea);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .value-callout .strikethrough {
+            text-decoration: line-through;
+            opacity: 0.6;
+            font-weight: 400;
+            margin-right: 6px;
+        }
+
+        /* ── Payment form body ── */
+        .card-body {
+            padding: 28px 36px 36px;
+        }
+
+        .section-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--sea);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label .step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--coral);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ── Form fields ── */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--sea);
+            margin-bottom: 6px;
+            letter-spacing: 0.02em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid rgba(22, 74, 80, 0.2);
+            border-radius: 10px;
+            font-size: 0.97rem;
+            font-family: inherit;
+            color: #2d3748;
+            background: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--sea);
+            box-shadow: 0 0 0 3px rgba(22, 74, 80, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #b0bec5;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* card number field with card type icon */
+        .card-field-wrap {
+            position: relative;
+        }
+
+        .card-field-wrap input {
+            padding-right: 90px;
+        }
+
+        .card-icons {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 4px;
+            pointer-events: none;
+        }
+
+        .card-icon {
+            height: 20px;
+            border-radius: 3px;
+            opacity: 0.75;
+            font-size: 0.65rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+            letter-spacing: 0.01em;
+            color: white;
+        }
+
+        .card-icon-visa { background: #1a1f71; }
+        .card-icon-mc { background: #eb001b; }
+        .card-icon-amex { background: #2e77bc; }
+
+        /* ── Divider ── */
+        .form-divider {
+            border: none;
+            border-top: 1px solid rgba(226, 119, 86, 0.18);
+            margin: 24px 0;
+        }
+
+        /* ── Order total ── */
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0 20px;
+            border-top: 2px solid var(--sea);
+            border-bottom: 1px solid rgba(22, 74, 80, 0.1);
+            margin-bottom: 22px;
+        }
+
+        .order-total-label {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--sea);
+        }
+
+        .order-total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--sea);
+        }
+
+        /* ── Submit button ── */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, var(--sea) 0%, #0d3d42 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 28px rgba(22, 74, 80, 0.35);
+            animation: pulse 3s infinite;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(22, 74, 80, 0.45);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            animation: none;
+            transform: none;
+        }
+
+        /* ── Below button micro-copy ── */
+        .submit-note {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--rust);
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* ── Trust badges row ── */
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px 24px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(226, 119, 86, 0.15);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--sea);
+        }
+
+        .trust-item .trust-icon {
+            font-size: 1rem;
+        }
+
+        /* ── Guarantee banner ── */
+        .guarantee-banner {
+            background: linear-gradient(135deg, rgba(22, 74, 80, 0.06) 0%, rgba(22, 74, 80, 0.12) 100%);
+            border: 2px solid var(--sea);
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .guarantee-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .guarantee-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--sea);
+            margin-bottom: 4px;
+        }
+
+        .guarantee-text p {
+            font-size: 0.85rem;
+            color: var(--rust);
+            line-height: 1.55;
+        }
+
+        /* ── Back link ── */
+        .back-link-wrap {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* ── Spinner (in button during submit) ── */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255,255,255,0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
+        }
+
+        .btn-text { display: inline; }
+
+        /* ── Animations ── */
+        @keyframes pulse {
+            0%   { box-shadow: 0 10px 28px rgba(22, 74, 80, 0.35); }
+            50%  { box-shadow: 0 10px 28px rgba(22, 74, 80, 0.55), 0 0 0 8px rgba(22, 74, 80, 0.08); }
+            100% { box-shadow: 0 10px 28px rgba(22, 74, 80, 0.35); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 560px) {
+            .card-header,
+            .card-body {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .product-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .product-price {
+                text-align: left;
+            }
+
+            .includes-list {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-row {
+                gap: 12px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="secure-header">
+            <span class="lock-icon">🔒</span>
+            Secure Checkout – 256-bit SSL Encrypted
+        </div>
+
+        <div class="card">
+            <div class="card-accent"></div>
+
+            <!-- ── Order Summary ── -->
+            <div class="card-header">
+                <h1>Order Summary</h1>
+
+                <div class="product-row">
+                    <div class="product-info">
+                        <h2>Catch Your Breath Kit</h2>
+                        <div class="tagline">3 breathing techniques + masterclass + support</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-amount">$9</div>
+                        <div class="price-label">one-time payment</div>
+                    </div>
+                </div>
+
+                <div class="includes">
+                    <div class="includes-title">Instant Access to Everything:</div>
+                    <ul class="includes-list">
+                        <li>The Fundamentals Breath</li>
+                        <li>Spirit Connection Breath</li>
+                        <li>Fear-Release Breath</li>
+                        <li>10-min video masterclass</li>
+                        <li>Printable cheat-sheet PDF</li>
+                        <li>3-day email mini-course</li>
+                        <li>Personal text support</li>
+                        <li>Early community access</li>
+                    </ul>
+                </div>
+
+                <div class="value-callout">
+                    🎯 Total Value: <span class="strikethrough">$275</span> Today Just <strong>$9</strong>
+                </div>
+            </div>
+
+            <!-- ── Payment Form ── -->
+            <div class="card-body">
+                <form id="checkoutForm" novalidate>
+
+                    <!-- Step 1: Contact -->
+                    <div class="section-label">
+                        <span class="step-badge">1</span>
+                        Contact Information
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="Anna"
+                                autocomplete="given-name"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                placeholder="Smith"
+                                autocomplete="family-name"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <hr class="form-divider">
+
+                    <!-- Step 2: Payment -->
+                    <div class="section-label">
+                        <span class="step-badge">2</span>
+                        Payment Details
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <div class="card-field-wrap">
+                            <input
+                                type="text"
+                                id="cardNumber"
+                                name="cardNumber"
+                                placeholder="1234 5678 9012 3456"
+                                inputmode="numeric"
+                                autocomplete="cc-number"
+                                maxlength="19"
+                                required
+                            >
+                            <div class="card-icons">
+                                <span class="card-icon card-icon-visa">VISA</span>
+                                <span class="card-icon card-icon-mc">MC</span>
+                                <span class="card-icon card-icon-amex">AMEX</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Expiry Date</label>
+                            <input
+                                type="text"
+                                id="expiry"
+                                name="expiry"
+                                placeholder="MM / YY"
+                                inputmode="numeric"
+                                autocomplete="cc-exp"
+                                maxlength="7"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="cvc">Security Code (CVC)</label>
+                            <input
+                                type="text"
+                                id="cvc"
+                                name="cvc"
+                                placeholder="123"
+                                inputmode="numeric"
+                                autocomplete="cc-csc"
+                                maxlength="4"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nameOnCard">Name on Card</label>
+                        <input
+                            type="text"
+                            id="nameOnCard"
+                            name="nameOnCard"
+                            placeholder="As it appears on your card"
+                            autocomplete="cc-name"
+                            required
+                        >
+                    </div>
+
+                    <!-- Order total -->
+                    <div class="order-total-row">
+                        <span class="order-total-label">Total Due Today</span>
+                        <span class="order-total-amount">$9.00</span>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">🔒 Complete My Order – $9</span>
+                        <span class="spinner" id="spinner"></span>
+                    </button>
+
+                    <p class="submit-note">
+                        Instant access delivered to your inbox right after payment.
+                    </p>
+
+                    <!-- Trust badges -->
+                    <div class="trust-row">
+                        <div class="trust-item">
+                            <span class="trust-icon">🔒</span>
+                            SSL Secure Payment
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-icon">✅</span>
+                            7-Day Money-Back Guarantee
+                        </div>
+                        <div class="trust-item">
+                            <span class="trust-icon">⚡</span>
+                            Instant Digital Access
+                        </div>
+                    </div>
+
+                </form>
+
+                <!-- Guarantee -->
+                <div class="guarantee-banner">
+                    <div class="guarantee-icon">🛡️</div>
+                    <div class="guarantee-text">
+                        <h4>7-Day Money-Back Guarantee</h4>
+                        <p>Try everything risk-free. If you're not completely satisfied, get a full refund—no questions asked.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="back-link-wrap">
+            <a href="index.html" class="back-link">← Back to sales page</a>
+        </div>
+
+    </div>
+
+    <script>
+        // ── Card number formatting ──
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '').slice(0, 16);
+            e.target.value = value.replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        // ── Expiry formatting ──
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '').slice(0, 4);
+            if (value.length >= 3) {
+                value = value.slice(0, 2) + ' / ' + value.slice(2);
+            }
+            e.target.value = value;
+        });
+
+        // ── CVC: digits only ──
+        document.getElementById('cvc').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+        });
+
+        // ── Basic form validation & submit ──
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fields = ['email', 'firstName', 'lastName', 'cardNumber', 'expiry', 'cvc', 'nameOnCard'];
+            let valid = true;
+
+            fields.forEach(function(id) {
+                const el = document.getElementById(id);
+                if (!el.value.trim()) {
+                    el.style.borderColor = '#e53e3e';
+                    el.addEventListener('input', function() {
+                        el.style.borderColor = '';
+                    }, { once: true });
+                    valid = false;
+                }
+            });
+
+            if (!valid) {
+                const firstInvalid = fields.map(id => document.getElementById(id)).find(el => !el.value.trim());
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
+
+            // Show loading state
+            const btn = document.getElementById('submitBtn');
+            const btnText = btn.querySelector('.btn-text');
+            const spinner = document.getElementById('spinner');
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+
+            // In a real integration this would call a payment processor (e.g. Stripe).
+            // For now, simulate a brief processing delay then redirect to a confirmation page.
+            setTimeout(function() {
+                window.location.href = 'confirmation.html';
+            }, 1800);
+        });
+    </script>
+</body>
+</html>
